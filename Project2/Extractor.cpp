@@ -19,6 +19,34 @@
 
 #include "Extractor.h"
 
+// TO-DO: Later make this into multi-thread instance
+ExtractorHelper::ExtractorHelper(vector<string> DirList)
+{
+	KOM obj;
+
+	ExtractorHelper ex(DirList);
+	ex.MapData(obj.MappedDataVec, obj.XMLDecrypted, f);
+
+	//Check header
+	obj.Header.resize(27);
+	f.read(&obj.Header[0], 27);
+	cout << obj.Header << "\n";
+	f.ignore(41);
+	f.read(reinterpret_cast<char*>(&obj.XMLSize), sizeof(uint));
+	cout << "XML SIZE: " << obj.XMLSize << "\n";
+
+	obj.XMLEncrypted.resize(obj.XMLSize);
+
+	f.read(&obj.XMLEncrypted[0], obj.XMLSize);
+
+	//DecryptionHelper::SetHeaderKeys(obj.HeaderKeys, obj.XMLSize);
+	//DecryptionHelper::HeaderDecrypt(obj.XMLEncrypted, obj.XMLDecrypted, obj.HeaderKeys);
+
+	//ofstream of(Directory + ".xml", ios::binary);
+	//of << obj.XMLDecrypted;
+
+}
+
 std::string ExtractorHelper::ZlibDecompress(const std::string& str)
 {
 	z_stream zs;                        // z_stream is zlib's control structure
@@ -93,17 +121,17 @@ void ExtractorHelper::MapData(vector<MappedData>& DataVec, string& XMLBuffer, if
 		case AlgorithmVer::NO_XOR:
 			TempFileInformation.FileBuffer = ZlibDecompress(TempFileInformation.FileBuffer);
 			break;
-		//case AlgorithmVer::SIMPLE_XOR:
-		//	DecryptionHelper::DecryptAlgo2(TempFileInformation.FileBuffer);
-		//	TempFileInformation.FileBuffer = ZlibDecompress(TempFileInformation.FileBuffer);
-		//	break;
-		//case AlgorithmVer::ADVANCED_XOR:
-		//	DecryptionHelper::DecryptAlgo3(TempFileInformation.FileBuffer);
-		//	TempFileInformation.FileBuffer = ZlibDecompress(TempFileInformation.FileBuffer);
-		//	break;
-		//default:
-		//	cerr << "Unable to find Algorithm version! Please report to YuilMuil.\n";
-		//	break;
+		case AlgorithmVer::SIMPLE_XOR:
+			DecryptionHelper::DecryptAlgo2(TempFileInformation.FileBuffer);
+			TempFileInformation.FileBuffer = ZlibDecompress(TempFileInformation.FileBuffer);
+			break;
+		case AlgorithmVer::ADVANCED_XOR:
+			DecryptionHelper::DecryptAlgo3(TempFileInformation.FileBuffer);
+			TempFileInformation.FileBuffer = ZlibDecompress(TempFileInformation.FileBuffer);
+			break;
+		default:
+			cerr << "Unable to find Algorithm version! Please report to YuilMuil.\n";
+			break;
 		}
 
 		DataVec.push_back(TempFileInformation);

@@ -40,7 +40,7 @@ void DecryptionHelper::SetHeaderKeys(vector<uint>& HeaderKeys, uint FileSize)
 		HeaderKeys.push_back(MappedHeaderKeys[startIndex++]);
 }
 
-void DecryptionHelper::HeaderDecrypt(string& EncryptedXML, string& DecryptedXML, vector<uint>& HeaderKeys)
+void DecryptionV4::HeaderDecrypt(string& EncryptedXML, string& DecryptedXML, vector<uint>& HeaderKeys)
 {
 	int count = 0;		   //Count until encrypted XML is empty
 	int KeyAreaCnt = 0;    //Index of encryption header key used
@@ -65,4 +65,16 @@ void DecryptionHelper::HeaderDecrypt(string& EncryptedXML, string& DecryptedXML,
 
 		KeyAreaCnt++;
 	}
+}
+
+void DecryptionV5::HeaderDecrypt(string& EncryptedXML, string& DecryptedXML, vector<uint>& HeaderKeys)
+{
+	
+}
+
+
+
+void DecryptionV6::HeaderDecrypt(string& EncryptedXML, string& DecryptedXML, vector<uint>& HeaderKeys)
+{
+	
 }

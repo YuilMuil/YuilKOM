@@ -61,7 +61,7 @@ public:
 	string FileBuffer; //File Buffer
 };
 
-class KOMv4
+class KOM
 {
 public:
 	string Header; //first 27 bytes, check whether it is komv3 or komv4

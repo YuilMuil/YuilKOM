@@ -22,29 +22,11 @@
 
 int main(int argc, char* argv[])
 {
-	string Directory = "C:\\Users\\Administrator\\Downloads\\data036.kom";
-	ifstream f(Directory, ios::binary);
-	KOMv4 obj;
+	vector<string> DirList;
+	for (int i = 0; i < argc; i++)
+		DirList.push_back(argv[i]);
 
-	//Check header
-	obj.Header.resize(27);
-	f.read(&obj.Header[0], 27);
-	cout << obj.Header << "\n";
-	f.ignore(41);
-	f.read(reinterpret_cast<char*>(&obj.XMLSize), sizeof(uint));
-	cout << "XML SIZE: " << obj.XMLSize << "\n";
+	//Parsing to be done later
 
-	obj.XMLEncrypted.resize(obj.XMLSize);
-
-	f.read(&obj.XMLEncrypted[0], obj.XMLSize);
-
-	DecryptionHelper::SetHeaderKeys(obj.HeaderKeys, obj.XMLSize);
-	DecryptionHelper::HeaderDecrypt(obj.XMLEncrypted, obj.XMLDecrypted, obj.HeaderKeys);
-
-	//ofstream of(Directory + ".xml", ios::binary);
-	//of << obj.XMLDecrypted;
-
-	ExtractorHelper ex;
-	ex.MapData(obj.MappedDataVec, obj.XMLDecrypted, f);
-	ex.ExportData(obj.MappedDataVec, Directory);
+	
 }

@@ -25,6 +25,10 @@
 using uint = unsigned int;
 using ulong = unsigned long long;
 
+/*
+KOMv4 Keys //Default
+*/
+
 constexpr std::array<uint, 796> MappedHeaderKeys = { //kom xml header encryption keys
 	0, 0, 0,
 	0x3FBFB085, 0x0B087AC7C, 0x465C7844,
@@ -294,7 +298,7 @@ constexpr std::array<uint, 796> MappedHeaderKeys = { //kom xml header encryption
 	0x0CF5D7562,
 };
 
-constexpr std::array<uint, 1506> MappedIDKeys = {
+constexpr std::array<uint, 1506> BlowfishSeed = {
 0, 0, 0, 0, 0,
 0x0C6F8AA02, 0x13CAEFAC, 0x0CC3D4FFB, 0x313409BC,
 0x52B34A75, 0x9D9A3BFE, 0x1DD795EE, 0x14C9EF8A, 0x0CF4235DE,
@@ -598,7 +602,7 @@ constexpr std::array<uint, 1506> MappedIDKeys = {
 0x57E4E05F, 0x13CAEFAC, 0x0BD32F7E5, 0x9D9A3BFE, 0x0,
 };
 
-constexpr std::array<uint, 256> MappedIDSeedKeys = {
+constexpr std::array<uint, 256> UnkSeedKeys = {
 0x0D1310BA6, 0x98DFB5AC, 0x2FFD72DB, 0x0D01ADFB7, 0x0B8E1AFED,
 0x6A267E96, 0x0BA7C9045, 0x0F12C7F99, 0x24A19947, 0x0B3916CF7,
 0x801F2E2, 0x858EFC16, 0x636920D8, 0x71574E69, 0x0A458FEA3,
@@ -651,4 +655,48 @@ constexpr std::array<uint, 256> MappedIDSeedKeys = {
 0x571BE91F, 0x0F296EC6B, 0x2A0DD915, 0x0B6636521, 0x0E7B9F9B6,
 0x0FF34052E, 0x0C5855664, 0x53B02D5D, 0x0A99F8FA1, 0x8BA4799,
 0x6E85076A
+};
+
+
+
+
+/*
+KOMv5 Keys
+*/
+
+constexpr std::array<uint, 796> MappedHeaderKeysV5 =
+{
+
+};
+
+constexpr std::array<uint, 1506> BlowfishSeedV5 =
+{
+
+};
+
+constexpr std::array<uint, 256> UnkSeedKeysV5 =
+{
+
+};
+
+
+
+
+
+/*
+KOMv6 Keys
+*/
+constexpr std::array<uint, 796> MappedHeaderKeysV6 =
+{
+
+};
+
+constexpr std::array<uint, 1506> BlowfishSeedV6 =
+{
+
+};
+
+constexpr std::array<uint, 256> UnkSeedKeysV6 =
+{
+
 };

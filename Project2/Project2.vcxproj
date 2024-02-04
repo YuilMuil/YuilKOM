@@ -143,6 +143,7 @@
   <ItemGroup>
     <ClCompile Include="Extractor.cpp" />
     <ClCompile Include="DecryptHelper.cpp" />
+    <ClCompile Include="Archiver.cpp" />
     <ClCompile Include="YuilMain.cpp" />
   </ItemGroup>
   <ItemGroup>

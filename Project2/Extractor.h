@@ -26,6 +26,7 @@ private:
 	ulong ulOffset;
 
 public:	
+	ExtractorHelper(vector<string> DirList);
 	std::string ZlibDecompress(const std::string& str);
 	void MapData(vector<MappedData>& DataVec, string& XMLBuffer, ifstream& FileBuffer);
 	void ExportData(vector<MappedData>& DataVec, string Directory);
@@ -36,32 +37,32 @@ class DecryptionHelper
 {
 public:
 	//Header
-	virtual void SetHeaderKeys(vector<uint>& HeaderKeys, uint FileSize);
+	static void SetHeaderKeys(vector<uint>& HeaderKeys, uint FileSize);
 	virtual void HeaderDecrypt(string& EncryptedXML, string& DecryptedXML, vector<uint>& HeaderKeys);
 
-	//XOR Decrypt(Algo2/Algo3) -> Algo3 is 034-040 and Algo2 is for the rest
-	static void BlowfishDecrypt(string& EncryptedXML, string& DecryptedXML, vector<uint>& HeaderKeys);
+	//XOR Decrypt(Algo2/Algo3)
 	static void DecryptAlgo2(string& Buffer);
 	static void DecryptAlgo3(string& Buffer);
+
+	//Decryption functions for algorithms and komv5/v6
+	static void SHA1_SeedGenerate(vector<uint>& HeaderKeys, uint FileSize);
+	static void BlowfishDecrypt(string& EncryptedXML, string& DecryptedXML, vector<uint>& HeaderKeys);
 };
 
 class DecryptionV4 : DecryptionHelper
 {
 	//Header
-	void SetHeaderKeys(vector<uint>& HeaderKeys, uint FileSize);
 	void HeaderDecrypt(string& EncryptedXML, string& DecryptedXML, vector<uint>& HeaderKeys);
 };
 
 class DecryptionV5 : DecryptionHelper
 {
 	//Header
-	void SetHeaderKeys(vector<uint>& HeaderKeys, uint FileSize);
 	void HeaderDecrypt(string& EncryptedXML, string& DecryptedXML, vector<uint>& HeaderKeys);
 };
 
 class DecryptionV6 : DecryptionHelper
 {
 	//Header
-	void SetHeaderKeys(vector<uint>& HeaderKeys, uint FileSize);
 	void HeaderDecrypt(string& EncryptedXML, string& DecryptedXML, vector<uint>& HeaderKeys);
 };
